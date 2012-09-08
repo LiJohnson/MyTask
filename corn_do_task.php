@@ -1,8 +1,8 @@
 <?php
-include_once "class/MyClient.php"; 
-include_once "class/BaseModel.php";
-include_once "class/Client.php";
-include_once "class/table.php";
+$basePath = dirname(__file__)."/../../";
+include_once $basePath."class/BaseDao.php";
+include_once $basePath."class/MyClientV2.php";
+include_once dirname(__file__)."/table.php";
 
 $uid = "2088440923";
 
