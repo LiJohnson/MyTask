@@ -13,7 +13,7 @@ include_once  dirname(__file__)."/table.php";
 $mid = "3386118012024131";
 $uid = "2088440923";
 //echo "<textarea style='margin-left: 2px; margin-right: 2px; width: 1274px; margin-top: 2px; margin-bottom: 2px; height: 728px;' >";
-$dao = new BaseDao();
+$dao = new BaseDao("gelivable");
 $dao->printSQL = 1;
 main( $uid , $mid );
 
