@@ -1,7 +1,7 @@
 <?php
 
 class Record{
-	var $table_name = 'tod_record';
+	var $table_name = 'record';
 	var $id;
         var $mid ;
         var $cid;
@@ -9,7 +9,7 @@ class Record{
 
 class Task
 {
-	var $table_name = 'tod_task';
+	var $table_name = 'task';
         var $id ;
         var $uid ;
         var $eid ;
