@@ -21,7 +21,7 @@ function getTime($offset=0)
 $condition = "and `time` >= '".getTime(-300)."' and  `time` < '".getTime(300) ."' and `done` = 0" ;
 
 $dao = new BaseDao("gelivable");
-$dao->printSQL = true;
+//$dao->printSQL = true;
 $t = new Task();
 
 $list = $dao->getModelList($t,$condition);
