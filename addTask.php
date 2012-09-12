@@ -21,7 +21,7 @@ $eid =  $userInfo['id'];
 
 if( strlen( $_POST['text']) )
 {
-		$m = new BaseDao();
+		$m = new BaseDao("gelivable");
 		$task = new Task();
 		$m->printSQL = true;
         
