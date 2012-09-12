@@ -23,7 +23,7 @@ if( strlen( $_POST['text']) )
 {
 		$m = new BaseDao("gelivable");
 		$task = new Task();
-		$m->printSQL = true;
+		//$m->printSQL = true;
         
   //  echo "<pre>";print_r($l);
         
