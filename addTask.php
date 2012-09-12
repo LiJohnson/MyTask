@@ -9,13 +9,13 @@ include_once dirname(__file__)."/table.php";
 
 
 $l = new MyLogin();
-$l->setDebug();
+//$l->setDebug();
 $eid = "";
 $l->login();
 
 $userInfo = $l->getUserInfo();
 
-var_dump($userInfo);
+//var_dump($userInfo);
 $eid =  $userInfo['id'];
 
 
