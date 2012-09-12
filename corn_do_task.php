@@ -20,10 +20,10 @@ function getTime($offset=0)
 }
 $condition = "and `time` >= '".getTime(-300)."' and  `time` < '".getTime(300) ."' and `done` = 0" ;
 
-$dao = new BaseDao();
+$dao = new BaseDao("gelivable");
 $dao->printSQL = true;
 $t = new Task();
-//$dao->printSQL = true;
+
 $list = $dao->getModelList($t,$condition);
 
 if( $list == false )exit ;
