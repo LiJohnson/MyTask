@@ -21,24 +21,36 @@ $eid =  $userInfo['id'];
 
 if( strlen( $_POST['text']) )
 {
-		$m = new BaseDao("gelivable");
-		$task = new Task();
-		//$m->printSQL = true;
-        
-  //  echo "<pre>";print_r($l);
-        
-		$task->time = $_POST['time'];
-		$task->text = $_POST['text'];
-		$task->pic  = $_POST['pic'];
-		$task->eid = $eid;
-		if( $task->eid == null )
+		if( $_POST['now'] == 'now' )
 		{
-			echo "erroe";
-			session_unregister();
-			session_destroy();
-			exit;
+			$c = $l->getClient();
+			if( strlen( trim($_POST['pic'])) > 0 )
+			{
+				$res = $c->upload($_POST['text'],$_POST['pic']);
+			}
+			else
+			{
+				$res = $c->update($_POST['text']);
+			}
+			echo $res['mid']?$res['mid']:'false';
 		}
-        $m->save($task);
+		else
+		{
+			$m = new BaseDao("gelivable");
+			$task = new Task();        
+			$task->time = $_POST['time'];
+			$task->text = $_POST['text'];
+			$task->pic  = $_POST['pic'];
+			$task->eid = $eid;
+			if( $task->eid == null )
+			{
+				echo "erroe";
+				session_unregister();
+				session_destroy();
+				exit;
+			}
+			$m->save($task);
+		}
 }
 
 ?>
@@ -83,7 +95,7 @@ if( strlen( $_POST['text']) )
       日期:<input name='time1' readonly>时间:<input name='time2' readonly><br><input id='t' name='time'>
       <div id='time'></div>
       <br>
-        <input type='submit'>
+        <label><input type=checkbox name=now value=now />立马发布</label><input type='submit'>
 
     </form>
   </body>
