@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'config.php';
 header("Content-Type:text/html; charset=utf-8");
 
 $basePath = dirname(__file__)."/../../";
@@ -16,6 +17,66 @@ $l->login();
 $userInfo = $l->getUserInfo();
 
 //var_dump($userInfo);
+
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<?php
+	getScript('jquery.js,bootstrap.js,jquery.plugin.js');
+	getCss('bootstrap.min.css');
+?>
+<script>
+  $(function(){
+	var now = new Date()*1;
+	var setTime = function(offset){
+		offset = (offset || 0)*1000;
+		$("[name=time]").val( $.formatDate(now+offset) );
+	};
+	setTime(60);
+	
+	$("[type=range]").change(function(){
+		setTime( this.value );
+	});
+  });
+</script>
+<style>
+td[title]{text-align: right;}
+tr td input{width:95%;}
+tr:last-child td input{width:auto;}
+
+</style>
+</head>
+  <body>
+    <form method="post" >
+		<table class='table table-bordered table-hovered' style='width:500px'>
+			<tr><td title>内容:</td><td><input name='text' type=text required ></td></tr>
+			<tr><td title>图片:</td><td><input name='pic' type=url ></td></tr>
+			<tr><td title rowspan=2 >日期:</td><td><input name='time' type=text ></td></tr>
+			<tr><td ><input type=range min=60 max=86400 step=1 value=60 ></td></tr>
+			<tr><td title rowspan=2 >位置:</td>
+				<td>
+				<div class="input-prepend input-append">
+					<span class="add-on">纬度</span><input class="span2" type="text" name=lat >
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<div class="input-prepend input-append">
+					<span class="add-on">经度</span><input class="span2" type="text" name=long >
+				</div>
+				</td>
+			</tr>
+			<tr><td></td><td><label class="checkbox inline" style="width: 100px;" ><input type=checkbox name=now value=now />立马发布</label><input type='submit'> </td></tr>
+		</table>
+
+		</form>
+</body>
+</html>
+<?php
+
 $eid =  $userInfo['id'];
 
 
@@ -26,11 +87,11 @@ if( strlen( $_POST['text']) )
 			$c = $l->getClient();
 			if( strlen( trim($_POST['pic'])) > 0 )
 			{
-				$res = $c->upload($_POST['text'],$_POST['pic']);
+				$res = $c->upload($_POST['text'],$_POST['pic'],$_POST['lat'] , $_POST['long']);
 			}
 			else
 			{
-				$res = $c->update($_POST['text']);
+				$res = $c->update($_POST['text'],$_POST['lat'] , $_POST['long']);
 			}
 			echo $res['mid']?$res['mid']:'false';
 		}
@@ -49,55 +110,7 @@ if( strlen( $_POST['text']) )
 				session_destroy();
 				exit;
 			}
-			$m->save($task);
+			var_dump($m->save($task));
 		}
 }
-
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script src="http://598420668pic-pic.stor.sinaapp.com/js/jquery.js"></script>
-<script src="http://598420668pic-pic.stor.sinaapp.com/js/jquery-ui.js"></script>
-<link href="http://598420668pic-pic.stor.sinaapp.com/css/redmond/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css">
-<script>
-  $(function(){
-    
-    var _time = parseInt(new Date().getTime()/60000) ; 
-    $("input[name='time1']").datepicker( {dateFormat:"yy-mm-dd",onClose: function(dateText, inst) { $("#t").val(dateText+" "+$("input[name='time2']").val()); }});
-    $("div#time").slider({
-                    orientation: "horizontal",
-                    range: "min",
-                    max: 1440,
-                    step:1,
-                    value: 0,
-                    slide: function(e){
-                            var time =  _time + parseInt( $("div#time").slider("value"));
-                            
-                      
-                      str = parseInt(time/60)%24+":"+time%60;
-                      $("input[name='time2']").val(str);
-                      
-                      var _d = new Date(time*60000);
-                      
-                      $("#t").val( _d.getFullYear()+"-"+(_d.getMonth()+1) +"-"+ _d.getDate()+" "+_d.getHours()+":"+_d.getMinutes() );
-                    }
-    });
-        
-    $("input[id!='t']").change(function(){});
-  });
-</script>
-
-  <body>
-    <form method="post" >   
-      内容:<input name='text'><br>
-      图片:<input name='pic'><br>
-      日期:<input name='time1' readonly>时间:<input name='time2' readonly><br><input id='t' name='time'>
-      <div id='time'></div>
-      <br>
-        <label><input type=checkbox name=now value=now />立马发布</label><input type='submit'>
-
-    </form>
-  </body>
-</html>
-
