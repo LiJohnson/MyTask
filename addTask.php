@@ -36,8 +36,16 @@ $userInfo = $l->getUserInfo();
 	};
 	setTime(60);
 	
-	$("[type=range]").change(function(){
+	$("[type=range][time]").change(function(){
 		setTime( this.value );
+	});
+	var $lat = $("[name=lat]");
+	var $long = $("[name=long]");
+	$("[type=range][lat]").change(function(){
+		$lat.val(this.value);
+	});
+	$("[type=range][long]").change(function(){
+		$long.val(this.value);
 	});
   });
 </script>
@@ -54,19 +62,23 @@ tr:last-child td input{width:auto;}
 			<tr><td title>内容:</td><td><input name='text' type=text required ></td></tr>
 			<tr><td title>图片:</td><td><input name='pic' type=url ></td></tr>
 			<tr><td title rowspan=2 >日期:</td><td><input name='time' type=text ></td></tr>
-			<tr><td ><input type=range min=60 max=86400 step=1 value=60 ></td></tr>
+			<tr><td ><input type=range min=60 max=86400 step=1 value=60 time ></td></tr>
 			<tr><td title rowspan=2 >位置:</td>
 				<td>
 				<div class="input-prepend input-append">
 					<span class="add-on">纬度</span><input class="span2" type="text" name=lat >
+					<div class='add-on span3' >	<input type=range min=-90 max=90 step=0.01 lat /></div>
 				</div>
+			
 				</td>
 			</tr>
 			<tr>
 				<td>
 				<div class="input-prepend input-append">
 					<span class="add-on">经度</span><input class="span2" type="text" name=long >
+					<div class='add-on span3' ><input type=range min=-180 max=180 step=0.01 long /></div>
 				</div>
+				
 				</td>
 			</tr>
 			<tr><td></td><td><label class="checkbox inline" style="width: 100px;" ><input type=checkbox name=now value=now />立马发布</label><input type='submit'> </td></tr>
