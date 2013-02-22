@@ -23,13 +23,14 @@ $userInfo = $l->getUserInfo();
 <!DOCTYPE html>
 <html>
 <head>
+<title>add Task</title>
 <?php
 	getScript('jquery.js,bootstrap.js,jquery.plugin.js');
 	getCss('bootstrap.min.css');
 ?>
 <script>
   $(function(){
-	var now = new Date()*1;
+	var now = new Date()*1;now = now - now % 60000 + 60000;
 	var setTime = function(offset){
 		offset = (offset || 0)*1000;
 		$("[name=time]").val( $.formatDate(now+offset) );
@@ -62,7 +63,7 @@ tr:last-child td input{width:auto;}
 			<tr><td title>内容:</td><td><input name='text' type=text required ></td></tr>
 			<tr><td title>图片:</td><td><input name='pic' type=url ></td></tr>
 			<tr><td title rowspan=2 >日期:</td><td><input name='time' type=text ></td></tr>
-			<tr><td ><input type=range min=60 max=86400 step=1 value=60 time ></td></tr>
+			<tr><td ><input type=range min=60 max=86400 step=60 value=60 time ></td></tr>
 			<tr><td title rowspan=2 >位置:</td>
 				<td>
 				<div class="input-prepend input-append">
@@ -76,7 +77,7 @@ tr:last-child td input{width:auto;}
 				<td>
 				<div class="input-prepend input-append">
 					<span class="add-on">经度</span><input class="span2" type="text" name=long >
-					<div class='add-on span3' ><input type=range min=-180 max=180 step=0.01 long /></div>
+					<div class='add-on span3' ><input type=range min=-180.00 max=180.00 step=0.01 long /></div>
 				</div>
 				
 				</td>
