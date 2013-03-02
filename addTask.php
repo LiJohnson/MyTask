@@ -48,6 +48,17 @@ $userInfo = $l->getUserInfo();
 	$("[type=range][long]").change(function(){
 		$long.val(this.value);
 	});
+	
+	$(".btn[locate]").click(function(){
+		navigator.geolocation.getCurrentPosition(function(g){
+			g = g || {}; g = g.coords ||{};
+			$lat.val(g.latitude);
+			$long.val(g.longitude);
+		},function(e){
+			$.box(e.message);
+		});
+		return false;
+	});
   });
 </script>
 <style>
@@ -60,11 +71,12 @@ tr:last-child td input{width:auto;}
   <body>
     <form method="post" >
 		<table class='table table-bordered table-hovered' style='width:500px'>
+			<tr><td title>用户:</td><td><?php echo $userInfo['name'] ;?></td></tr>
 			<tr><td title>内容:</td><td><input name='text' type=text required ></td></tr>
 			<tr><td title>图片:</td><td><input name='pic' type=url ></td></tr>
 			<tr><td title rowspan=2 >日期:</td><td><input name='time' type=text ></td></tr>
 			<tr><td ><input type=range min=60 max=86400 step=60 value=60 time ></td></tr>
-			<tr><td title rowspan=2 >位置:</td>
+			<tr><td title rowspan=2 >位置:<br><button class='btn btn-inverse btn-mini' locate>定位</button> </td>
 				<td>
 				<div class="input-prepend input-append">
 					<span class="add-on">纬度</span><input class="span2" type="text" name=lat >
