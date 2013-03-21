@@ -74,7 +74,7 @@ tr:last-child td input{width:auto;}
 			<tr><td title>用户:</td><td><?php echo $userInfo['name'] ;?></td></tr>
 			<tr><td title>内容:</td><td><input name='text' type=text required ></td></tr>
 			<tr><td title>图片:</td><td><input name='pic' type=url ></td></tr>
-			<tr><td title rowspan=2 >日期:</td><td><input name='time' type=text ></td></tr>
+			<tr><td title rowspan=2 >日期:</td><td><label class="checkbox inline" style="width: 100px;" ><input type=checkbox name=now value=now checked />立马发布</label><input name='time' type=text ></td></tr>
 			<tr><td ><input type=range min=60 max=86400 step=60 value=60 time ></td></tr>
 			<tr><td title rowspan=2 >位置:<br><button class='btn btn-inverse btn-mini' locate>定位</button> </td>
 				<td>
@@ -94,7 +94,7 @@ tr:last-child td input{width:auto;}
 				
 				</td>
 			</tr>
-			<tr><td></td><td><label class="checkbox inline" style="width: 100px;" ><input type=checkbox name=now value=now />立马发布</label><input type='submit'> </td></tr>
+			<tr><td></td><td><input type='submit'> </td></tr>
 		</table>
 
 		</form>
