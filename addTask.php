@@ -54,6 +54,9 @@ $userInfo = $l->getUserInfo();
 			g = g || {}; g = g.coords ||{};
 			$lat.val(g.latitude);
 			$long.val(g.longitude);
+			$("[type=range][lat]").val(g.latitude);
+			$("[type=range][long]").val(g.longitude);
+
 		},function(e){
 			$.box(e.message);
 		});
@@ -65,12 +68,14 @@ $userInfo = $l->getUserInfo();
 td[title]{text-align: right;}
 tr td input{width:95%;}
 tr:last-child td input{width:auto;}
-
+.add-on input[type=range]{width: 200px;}
 </style>
 </head>
   <body>
+  	<div class=container >
     <form method="post" >
 		<table class='table table-bordered table-hovered' style='width:500px'>
+			<tr><td> </td></tr>
 			<tr><td title>用户:</td><td><?php echo $userInfo['name'] ;?></td></tr>
 			<tr><td title>内容:</td><td><input name='text' type=text required ></td></tr>
 			<tr><td title>图片:</td><td><input name='pic' type=url ></td></tr>
@@ -79,8 +84,10 @@ tr:last-child td input{width:auto;}
 			<tr><td title rowspan=2 >位置:<br><button class='btn btn-inverse btn-mini' locate>定位</button> </td>
 				<td>
 				<div class="input-prepend input-append">
-					<span class="add-on">纬度</span><input class="span2" type="text" name=lat >
-					<div class='add-on span3' >	<input type=range min=-90 max=90 step=0.01 lat /></div>
+					<span class="add-on">
+						纬度 <input type=range min=-90 max=90 step=0.000001 lat />
+					</span>
+					<input class="span2" type="text" name=lat >
 				</div>
 			
 				</td>
@@ -88,16 +95,21 @@ tr:last-child td input{width:auto;}
 			<tr>
 				<td>
 				<div class="input-prepend input-append">
-					<span class="add-on">经度</span><input class="span2" type="text" name=long >
-					<div class='add-on span3' ><input type=range min=-180.00 max=180.00 step=0.01 long /></div>
+					<span class="add-on">
+						经度 <input type=range min=-180.00 max=180.00 step=0.000001 long />
+					</span>
+					<input class="span2" type="text" name=long >
+					
 				</div>
 				
 				</td>
 			</tr>
-			<tr><td></td><td><input type='submit'> </td></tr>
+			<tr><td></td><td><input type='submit' class='btn btn-primary'> </td></tr>
+
 		</table>
 
 		</form>
+	</div>
 </body>
 </html>
 <?php
