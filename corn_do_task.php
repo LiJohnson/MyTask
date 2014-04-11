@@ -26,7 +26,10 @@ $t = new Task();
 
 $list = $dao->getModelList($t,$condition);
 
-if( $list == false )exit ;
+if( $list == false ){
+	echo $condition;
+	exit ;
+}
 
 foreach ( $list as $t )
 {
