@@ -13,7 +13,7 @@ $l = new MyLogin();
 //$l->setDebug();
 $eid = "";
 $l->login();
-
+//$l->updateClientInfo();
 $userInfo = $l->getUserInfo();
 
 //var_dump($userInfo);

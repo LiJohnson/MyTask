@@ -7,17 +7,10 @@ include_once dirname(__file__)."/table.php";
 
 $uid = "2088440923";
 
-?>
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<?php
-$f = "Y-n-d G:i:s" ;
-function getTime($offset=0)
-{
-
+function getTime($offset=0){
 	return date("Y-n-d G:i:s" , time() + $offset);
 }
+
 $condition = "and  `time` < '".getTime(60) ."' and `done` = 0" ;
 
 $dao = new BaseDao("gelivable");
@@ -27,50 +20,45 @@ $t = new Task();
 $list = $dao->getModelList($t,$condition);
 
 if( $list == false ){
-	echo $condition;
+	myLog($condition);
 	exit ;
 }
 
-foreach ( $list as $t )
-{
+foreach ( $list as $t ){
+
 	$user = new Users();
 	$user->id = $t['eid'] ;
 	$client = new MyClientV2($dao->getOneModel($user));
 
 	$text = "";
-	if( strlen( $t['uid'] ) > 0 )
-	{
+	if( strlen( $t['uid'] ) > 0 ){
 		$host = $client->show_user_by_id($t['uid']);
 		$text = "@".$host['screen_name']." ";
 	}
+
 	$text .= $t['text']  ;
-	$ms  ;
-	if( strlen($t['pic']) )
-	{
+
+	if( strlen($t['pic']) ){
 		$ms = $client->upload($text, $t['pic']) ;
-	}
-	else 
-	{
+	}else {
 		$ms = $client->update($text);
 	}
         
-	if( isset($ms['error']) )
-	{
-		print_r($ms);
-	}
-	else
-	{
+	if( isset($ms['error']) ){
+		myLog($ms);
+	}else{
 		$task = new Task();
 		$task->done = 1 ;
 		$dao->update( $task , " and `id`='".$t['id']."'" );
-		echo $t['id']."&";
+		myLog( $t['id']."&");
 	}
 }
 
-
 function myLog($log){
-	$file = "saestor://wp/log/task.log";
-	file_put_contents( $file , file_get_contents($file) . "\n" . var_export($log,1) );
+	$file = defined("SAE_MYSQL_DB") ? "saestor://wp/log/task.log" : "f:/task.log";
+	$log =  var_export($log,1);
+	echo $log;
+	file_put_contents( $file , getTime() . ":\n" . $log. "\n" . substr( file_get_contents($file) , 0 , 1024*100 ) );
 }
 
 ?>
