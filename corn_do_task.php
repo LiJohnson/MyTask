@@ -18,7 +18,7 @@ function getTime($offset=0)
 
 	return date("Y-n-d G:i:s" , time() + $offset);
 }
-$condition = "and `time` >= '".getTime(-300)."' and  `time` < '".getTime(300) ."' and `done` = 0" ;
+$condition = "and  `time` < '".getTime(60) ."' and `done` = 0" ;
 
 $dao = new BaseDao("gelivable");
 //$dao->printSQL = true;
@@ -67,6 +67,11 @@ foreach ( $list as $t )
 	}
 }
 
+
+function myLog($log){
+	$file = "saestor://wp/log/task.log";
+	file_put_contents( $file , file_get_contents($file) . "\n" . var_export($log,1) );
+}
 
 ?>
 
