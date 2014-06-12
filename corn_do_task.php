@@ -58,7 +58,7 @@ function myLog($log){
 	$file = defined("SAE_MYSQL_DB") ? "saestor://wp/log/task.log" : "f:/task.log";
 	$log =  var_export($log,1);
 	echo $log;
-	file_put_contents( $file , getTime() . ":\n" . $log. "\n" . substr( file_get_contents($file) , 0 , 1024*100 ) );
+	file_put_contents( $file , getTime() . ":\n\t" . $log. "\n" . substr( file_get_contents($file) , 0 , 1024*100 ) );
 }
 
 ?>
