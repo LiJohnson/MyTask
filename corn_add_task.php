@@ -1,4 +1,5 @@
 <?php
+exit;
 $basePath = dirname(__file__)."/../../";
 include_once $basePath ."class/BaseDao.php";
 include_once $basePath ."class/MyClientV2.php";
