@@ -43,15 +43,16 @@ foreach ( $list as $t ){
 	}else {
 		$ms = $client->update($text);
 	}
-        
+    
+    $task = new Task();
 	if( isset($ms['error']) ){
 		myLog($ms);
+		$task->done = 2 ;
 	}else{
-		$task = new Task();
 		$task->done = 1 ;
-		$dao->update( $task , " and `id`='".$t['id']."'" );
 		myLog( $t['id']."&");
 	}
+	$dao->update( $task , " and `id`='".$t['id']."'" );
 }
 
 function myLog($log){
