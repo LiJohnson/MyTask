@@ -121,7 +121,7 @@ if( strlen( $_POST['text']) )
 {
 		if( $_POST['now'] == 'now' )
 		{
-			$c = $l->getClient();
+			$c = new MyClientV2();
 			if( strlen( trim($_POST['pic'])) > 0 )
 			{
 				$res = $c->upload($_POST['text'],$_POST['pic'],$_POST['lat'] , $_POST['long']);
