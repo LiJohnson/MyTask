@@ -135,12 +135,12 @@ if( strlen( $_POST['text']) )
 		else
 		{
 			$m = new BaseDao("gelivable");
-			$task = new Task();        
-			$task->time = $_POST['time'];
-			$task->text = $_POST['text'];
-			$task->pic  = $_POST['pic'];
-			$task->eid = $eid;
-			if( $task->eid == null )
+			$m->setTable('task');
+			$task['time'] = $_POST['time'];
+			$task['text'] = $_POST['text'];
+			$task['pic']  = $_POST['pic'];
+			$task['eid'] = $eid;
+			if( $task['eid'] == null )
 			{
 				echo "erroe";
 				session_unregister();

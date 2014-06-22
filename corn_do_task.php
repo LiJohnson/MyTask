@@ -1,8 +1,9 @@
 <?php
+include 'config.php';
+
 $basePath = dirname(__file__)."/../../";
 include_once $basePath."class/BaseDao.php";
 include_once $basePath."class/MyClientV2.php";
-include_once $basePath ."class/MyTable.php";
 include_once dirname(__file__)."/table.php";
 
 $uid = "2088440923";
@@ -13,11 +14,13 @@ function getTime($offset=0){
 
 $condition = "and  `time` < '".getTime(60) ."' and `done` = 0" ;
 
-$dao = new BaseDao("gelivable");
-//$dao->printSQL = true;
-$t = new Task();
+$taskDao = new BaseDao("gelivable");
+$userDao = new BaseDao("gelivable");
+$taskDao->setTable('task');
+$userDao->setTable('users');
 
-$list = $dao->getModelList($t,$condition);
+
+$list = $taskDao->getModelList(array(),$condition);
 
 if( $list == false ){
 	myLog($condition);
@@ -26,9 +29,11 @@ if( $list == false ){
 
 foreach ( $list as $t ){
 
-	$user = new Users();
-	$user->id = $t['eid'] ;
-	$client = new MyClientV2($dao->getOneModel($user));
+	$user = $userDao->getOneModel(array('id' => $t['eid'] ));
+	var_dump($user);
+	if(!$user)continue;
+
+	$client = new MyClientV2($user);
 
 	$text = "";
 	if( strlen( $t['uid'] ) > 0 ){
@@ -44,15 +49,16 @@ foreach ( $list as $t ){
 		$ms = $client->update($text);
 	}
     
-    $task = new Task();
+    $task = array();
 	if( isset($ms['error']) ){
 		myLog($ms);
-		$task->done = 2 ;
+		$task['done'] = 2 ;
 	}else{
-		$task->done = 1 ;
+		$task['done'] = 1 ;
 		myLog( $t['id']."&");
 	}
-	$dao->update( $task , " and `id`='".$t['id']."'" );
+	$taskDao->setDebug();
+	$taskDao->update( $task , " `id`='".$t['id']."'" );
 }
 
 function myLog($log){
