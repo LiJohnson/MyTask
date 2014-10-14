@@ -20,11 +20,11 @@ else
 {
 	
 	//app name : 给力
-	/**/
+	/*
 	define( "WB_AKEY" , '522446840' );
 	define( "WB_SKEY" , '3c86c51f3095b49d97b08f00c85cad23' );
-	/*
-	/*app name : theotherdoor*
+	/**/
+	//app name : theotherdoor
 	define( "WB_AKEY" , '2514193462' );
 	define( "WB_SKEY" , '6a957336c809666320421b44307b8a28' );
 	/**/
