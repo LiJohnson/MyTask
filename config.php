@@ -5,7 +5,7 @@ if( !defined("SAE_TMP_PATH") ) //SAE_TMP_PATH 为sae的预定义变量，用来�
 	/**/
 	define( "WB_AKEY" , '3600693014' );
 	define( "WB_SKEY" , '22325d36c32bc46cb553e87afc1b01be' );
-	define(	"SRC_PATH" , 'http://lcs.com/sae/gtbcode/1/') ;
+	define(	"SRC_PATH" , 'http://sae.lcs.com/gtbcode/1/') ;
 
 	define( "MY_DB_HOST" , "lcs.com");
 	define( "MY_DB_USER" , "lcs");

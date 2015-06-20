@@ -23,7 +23,10 @@ $userInfo = $l->getUserInfo();
 <!DOCTYPE html>
 <html>
 <head>
-<title>add Task</title>
+	<title>add Task</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
 	getScript('jquery.js,bootstrap.js,jquery.plugin.js');
 	getCss('bootstrap.min.css');
@@ -62,6 +65,10 @@ $userInfo = $l->getUserInfo();
 		});
 		return false;
 	});
+
+	$("input:file").change(function() {
+		$("input[name=pic]").val(this.value||"")
+	});
   });
 </script>
 <style>
@@ -69,16 +76,28 @@ td[title]{text-align: right;}
 tr td input{width:95%;}
 tr:last-child td input{width:auto;}
 .add-on input[type=range]{width: 200px;}
+.pic{width: 90%;}
+.pic .add-on{position: relative;overflow: hidden;cursor: pointer;}
+.pic input[type=file]{position: absolute;top:0;left: 0;opacity: 0;}
 </style>
 </head>
   <body>
   	<div class=container >
-    <form method="post" >
+    <form method="post" enctype="multipart/form-data">
 		<table class='table table-bordered table-hovered' style='width:500px'>
 			<tr><td> </td></tr>
 			<tr><td title>用户:</td><td><?php echo $userInfo['name'] ;?></td></tr>
 			<tr><td title>内容:</td><td><input name='text' type=text required ></td></tr>
-			<tr><td title>图片:</td><td><input name='pic' type=url ></td></tr>
+			<tr><td title>图片:</td><td>
+				<div class="input-append pic">
+					<input name='pic' type='url' >
+					<span class="add-on">
+						<i class="icon-camera" >
+							<input type='file' name='file' >
+						</i>
+					</span>
+				</div>
+			</td></tr>
 			<tr><td title rowspan=2 >日期:</td><td><label class="checkbox inline" style="width: 100px;" ><input type=checkbox name=now value=now checked />立马发布</label><input name='time' type=text ></td></tr>
 			<tr><td ><input type=range min=60 max=86400 step=60 value=60 time ></td></tr>
 			<tr><td title rowspan=2 >位置:<br><button class='btn btn-inverse btn-mini' locate>定位</button> </td>
@@ -89,7 +108,6 @@ tr:last-child td input{width:auto;}
 					</span>
 					<input class="span2" type="text" name=lat >
 				</div>
-			
 				</td>
 			</tr>
 			<tr>
@@ -116,15 +134,29 @@ tr:last-child td input{width:auto;}
 
 $eid =  $userInfo['id'];
 
+function getPic(){
+
+	if( $_FILES['file']['tmp_name'] ){
+		return $_FILES['file']['tmp_name'];
+	}
+
+	if( strlen($_POST['pic']) > 0 ){
+		return $_POST['pic'];
+	}
+
+	return false;
+}
 
 if( strlen( $_POST['text']) )
 {
 		if( $_POST['now'] == 'now' )
 		{
 			$c = new MyClientV2();
-			if( strlen( trim($_POST['pic'])) > 0 )
+			$pic = getPic();
+			$res = 5;
+			if( $pic )
 			{
-				$res = $c->upload($_POST['text'],$_POST['pic'],$_POST['lat'] , $_POST['long']);
+				$res = $c->upload($_POST['text'],$pic,$_POST['lat'] , $_POST['long']);
 			}
 			else
 			{
