@@ -1,12 +1,12 @@
 <?php
 session_start();
 include 'config.php';
-header("Content-Type:text/html; charset=utf-8");
+header('Content-Type:text/html; charset=utf-8;');
 
-$basePath = dirname(__file__)."/../../";
-include_once $basePath."class/MyLogin.php";
-include_once $basePath."class/BaseDao.php";
-include_once dirname(__file__)."/table.php";
+$basePath = dirname(__file__);
+include_once $basePath.'/lib/MyLogin.php';
+include_once $basePath.'/lib/BaseDao.php';
+include_once dirname(__file__).'/table.php';
 
 
 $l = new MyLogin();
@@ -162,6 +162,7 @@ if( strlen( $_POST['text']) )
 			{
 				$res = $c->update($_POST['text'],$_POST['lat'] , $_POST['long']);
 			}
+			var_dump($res);
 			echo $res['mid']?$res['mid']:'false';
 		}
 		else

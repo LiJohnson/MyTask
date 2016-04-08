@@ -1,16 +1,12 @@
 <?php
 
-//define( "WB_AKEY" , '2514193462' );
-//define( "WB_SKEY" , '6a957336c809666320421b44307b8a28' );
-//define( 'MY_DB_NAME', 'gelivable');
-
-define( 'WB_AKEY' , '3600693014' );
-define( 'WB_SKEY' , '22325d36c32bc46cb553e87afc1b01be' );
+define( 'WB_AKEY' , '******' );
+define( 'WB_SKEY' , '******' );
 define( 'MY_DB_HOST' , 'lcs.com');
 define( 'MY_DB_USER' , 'lcs');
 define( 'MY_DB_PASS' , 'lcs');
 define( 'MY_DB_NAME', 'gelivable');
-define( 'MY_KV_FILE' , 'd:/KV/data.kv');
+define( 'MY_KV_FILE' , '/tmp/data.kv');
 define(	'SRC_PATH' , 'http://gtbcode.lcs.io/');
 
 
