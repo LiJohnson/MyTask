@@ -167,8 +167,8 @@ if( strlen( $_POST['text']) )
 		}
 		else
 		{
-			$m = new BaseDao("gelivable");
-			$m->setTable('task');
+			$m = new BaseDao();
+			$m->setTable('tod_task');
 			$task['time'] = $_POST['time'];
 			$task['text'] = $_POST['text'];
 			$task['pic']  = $_POST['pic'];
