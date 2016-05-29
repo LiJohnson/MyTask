@@ -34,7 +34,7 @@ if( $_GET['login'] ){
 	$l = new MyLogin();
 	$l->login();
 	$token = json_encode($_SESSION['token']);
-	echo "<script> localStorage.wbToken = '$token'; location.href='?' </script>";
+	echo "<script> localStorage.wbToken = '$token'; location.href='weibo.php' </script>";
 	exit;
 }
 ?>
