@@ -31,8 +31,6 @@ if( $action = $_POST['action'] ){
 if( $_GET['login'] ){
 	include_once $basePath.'/lib/MyLogin.php';
 	$l = new MyLogin();
-	//$l->setDebug();
-	$eid = "";
 	$l->login();
 	$token = json_encode($_SESSION['token']);
 	echo "<script> localStorage.wbToken = '$token'; location.href='?' </script>";
@@ -127,6 +125,7 @@ if( $_GET['login'] ){
 			}).on('click','.btn.clean',function(){
 				localStorage.wbToken = '';
 				post('clean',{});
+				return false;
 			});
 
 			var token = JSON.parse( localStorage.wbToken || '{}' );
