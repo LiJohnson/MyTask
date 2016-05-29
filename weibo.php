@@ -21,8 +21,9 @@ if( $action = $_POST['action'] ){
 		else{
 			$res = $client->update($_POST['text'],$_POST['lat'] , $_POST['long']);
 		}
+		$res['user'] = NULL;
 		var_dump($res);
-		echo "<a href=''>返回</a>";
+		echo "<a href=''>back</a>";
 	}
 
 	exit;
@@ -123,6 +124,7 @@ if( $_GET['login'] ){
 				return false;
 			}).on('submit',function(){
 			}).on('click','.btn.clean',function(){
+				if(!confirm('sure?'))return false;
 				localStorage.wbToken = '';
 				post('clean',{});
 				return false;
