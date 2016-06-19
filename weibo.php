@@ -71,7 +71,7 @@ if( $_GET['login'] ){
 							<label for="pic" class="col-sm-2 control-label">pic</label>
 							<div class="col-sm-10">
 								<input type="file" class="form-control" id="pic" name="pic" />
-								<img src=""/>
+								<img src=""  class="img-rounded" style=" max-width: 100%;" />
 							</div>
 						</div>
 						<div class="form-group">
