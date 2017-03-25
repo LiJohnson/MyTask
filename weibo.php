@@ -95,6 +95,7 @@ if( $_GET['login'] ){
 							<div class="col-sm-10 col-sm-offset-2 ">
 								<input type='submit' class='btn btn-primary' name="action" value="post" />
 								<a href="" class="btn btn-danger clean">clean</a>
+								<a href="comments.php" class="btn btn-default">comment</a>
 							</div>
 						</div>
 					</form>
