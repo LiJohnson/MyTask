@@ -39,19 +39,15 @@ if( $_POST['action'] == 'by_me' ){
 <body>
 	<div class="container">
 		<div class="row ">
-			<div class="col-sm-6" >
-				<a class="btn btn-default" data-comment="to_me">
-					to_me
-				</a>
-			</div>
-			<div class="col-sm-6" >
-				<a class="btn btn-default" data-comment="by_me">
-					by_me
-				</a>
-			</div>
-		</div>
-		<div class="row ">
 			<table class="table table-bordered table-hovered ">
+				<thead>
+					<tr>
+					<th colspan="3">
+						<a class="btn btn-default" data-comment="to_me">to_me</a>
+  						<a class="btn btn-default" data-comment="by_me">by_me</a>
+			      </th>
+			    </tr>
+			  </thead>
 				<tbody class="comment-list" ></tbody>
 			</table>
 		</div>
