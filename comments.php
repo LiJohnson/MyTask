@@ -43,6 +43,7 @@ if( $_POST['action'] == 'by_me' ){
 				<thead>
 					<tr>
 					<th colspan="3">
+						<span class="btn alert-success name"></span>
 						<a class="btn btn-default" data-comment="to_me">to_me</a>
   						<a class="btn btn-default" data-comment="by_me">by_me</a>
 			      </th>
@@ -76,7 +77,7 @@ if( $_POST['action'] == 'by_me' ){
 		$(function(){
 			const $list = $('.comment-list');
 			const $dialog = $('.reply-dialog')
-			const post = function(action,param){
+			const post = function(action,param,page){
 				param = param || {};
 				if( $.type(param) == 'array' ){
 					param.push({
@@ -86,7 +87,7 @@ if( $_POST['action'] == 'by_me' ){
 				}else{
 					param.action = action;
 				}
-				return $.post('',param,function(){},'json');
+				return $.post(page || '',param,function(){},'json');
 			};
 			const render = function( comment ){
 				return `<tr><td class='col-sm-2'>
@@ -131,7 +132,14 @@ if( $_POST['action'] == 'by_me' ){
 			$('[data-comment]').click(function(){
 				load($(this).data('comment'));
 			});
-			load('to_me');
+
+			post('name',JSON.parse( localStorage.wbToken || '{}' ),'weibo.php').success(data=>{
+				$('.btn.name').html(data.name);
+			}).done(()=>{
+				load('to_me');
+			}).error(()=>{
+				confirm('login') && (location.href='?login=login');
+			});
 		});
 	</script>
 </body>
