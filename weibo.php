@@ -11,16 +11,9 @@ if( $action = $_POST['action'] ){
 		echo json_encode($client->getUserInfo());
 	}else if( $action == 'clean' ){
 		 $_SESSION['token'] = NULL;
-	}
-	else{
+	}else{
 		$client =  new MyClientV2();
-
-		if( $_FILES['pic']['tmp_name'] ){
-			$res = $client->upload($_POST['text'], $_FILES['pic']['tmp_name'] , $_POST['lat'] , $_POST['long']);
-		}
-		else{
-			$res = $client->update($_POST['text'],$_POST['lat'] , $_POST['long']);
-		}
+		$res = $client->share($_POST['text'], $_FILES['pic']['tmp_name']);
 		$res['user'] = NULL;
 		var_dump($res);
 		echo "<a href=''>back</a>";
