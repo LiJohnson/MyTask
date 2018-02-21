@@ -108,6 +108,7 @@ if( $_GET['login'] ){
 				}
 				return $.post('',param,function(){},'json');
 			};
+			var $text = $('form [name=text]')
 			$('form').on('change',':file',function(){
 				$(this).siblings('img').prop('src',URL.createObjectURL(this.files[0]));
 			}).on('change','[type=range]',function(){
@@ -120,6 +121,9 @@ if( $_GET['login'] ){
 				});
 				return false;
 			}).on('submit',function(){
+				if( $text.val() ){
+					$text.val( $text.val() + ' ' + 'https://weibo.com/' + token['uid'] )
+				}
 			}).on('click','.btn.clean',function(){
 				if(!confirm('sure?'))return false;
 				localStorage.wbToken = '';
